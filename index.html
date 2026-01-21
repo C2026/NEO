@@ -1,149 +1,499 @@
-<!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Cargando</title>
-
-  <!-- Fuente Montserrat -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-
-  <style>
-    html, body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-    }
-
-    body {
-      background-color: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Montserrat', sans-serif;
-      color: #fff;
-    }
-
-    .l {
-  color: white;
-  opacity: 0;
-  animation: pass 2s ease-in-out infinite;
-  animation-delay: 0.2s;
-  letter-spacing: 0.5em;
-  text-shadow: 2px 2px 3px #919191;
-}
-
-.o {
-  color: white;
-  opacity: 0;
-  animation: pass 2s ease-in-out infinite;
-  animation-delay: 0.4s;
-  letter-spacing: 0.5em;
-  text-shadow: 2px 2px 3px #919191;
-}
-
-.a {
-  color: white;
-  opacity: 0;
-  animation: pass 2s ease-in-out infinite;
-  animation-delay: 0.6s;
-  letter-spacing: 0.5em;
-  text-shadow: 2px 2px 3px #919191;
-}
-
-.d {
-  color: white;
-  opacity: 0;
-  animation: pass 2s ease-in-out infinite;
-  animation-delay: 0.8s;
-  letter-spacing: 0.5em;
-  text-shadow: 2px 2px 3px #919191;
-}
-
-.i {
-  color: white;
-  opacity: 0;
-  animation: pass 2s ease-in-out infinite;
-  animation-delay: 1s;
-  letter-spacing: 0.5em;
-  text-shadow: 2px 2px 3px #919191;
-}
-
-.n {
-  color: white;
-  opacity: 0;
-  animation: pass 2s ease-in-out infinite;
-  animation-delay: 1.2s;
-  letter-spacing: 0.5em;
-  text-shadow: 2px 2px 3px #919191;
-}
-
-.g {
-  color: white;
-  opacity: 0;
-  animation: pass 2s ease-in-out infinite;
-  animation-delay: 1.4s;
-  letter-spacing: 0.5em;
-  text-shadow: 2px 2px 3px #919191;
-}
-
-.d1 {
-  color: white;
-  opacity: 0;
-  animation: pass1 2s ease-in-out infinite;
-  animation-delay: 1.6s;
-  letter-spacing: 0.5em;
-  text-shadow: 2px 2px 3px #919191;
-}
-
-.d2 {
-  color: white;
-  opacity: 0;
-  animation: pass1 2s ease-in-out infinite;
-  animation-delay: 2s;
-  letter-spacing: 0.5em;
-  text-shadow: 2px 2px 3px #919191;
-}
-
-@keyframes pass {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes pass1 {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museum Exhibit Countdown</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto+Slab:wght@300;400&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Roboto Slab', serif;
+            background-color: #f5f2e9;
+            color: #3a3226;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .texture-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/png;base64,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');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .container {
+            max-width: 650px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 2px;
+            background-color: #f9f6f1;
+            border: 1px solid #d8cdb6;
+            box-shadow: 0 10px 30px rgba(58, 50, 38, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #4a3c28;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: 0.5px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: #a38f6d;
+        }
+        
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #7d6c55;
+            margin-bottom: 25px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #665e4c;
+            margin-bottom: 25px;
+            max-width: 580px;
+        }
+        
+        .date-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px 0;
+            justify-content: flex-start;
+        }
+        
+        .date-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 20px;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .date-unit:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+        
+        .date-unit:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .date-unit:nth-child(3) {
+            animation-delay: 0.7s;
+        }
+        
+        .date-unit:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+        
+        .date-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #5a4a30;
+            background-color: #efe8dc;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #d8cdb6;
+            border-radius: 2px;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .date-value::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+        }
+        
+        .date-value:hover {
+            transform: translateY(-3px);
+        }
+        
+        .date-label {
+            font-family: 'Roboto Slab', serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: #7d6c55;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .notification-form {
+            margin-top: 35px;
+            padding-top: 30px;
+            border-top: 1px solid #d8cdb6;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.2s forwards;
+        }
+        
+        .form-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: #5a4a30;
+            margin-bottom: 15px;
+        }
+        
+        .input-group {
+            display: flex;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        input[type="email"] {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 15px;
+            border: 1px solid #d8cdb6;
+            background-color: #fcf9f5;
+            color: #665e4c;
+            font-family: 'Roboto Slab', serif;
+            font-size: 1rem;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #a38f6d;
+            box-shadow: 0 0 0 2px rgba(163, 143, 109, 0.2);
+        }
+        
+        button {
+            background-color: #7d6c55;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            font-family: 'Roboto Slab', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button:hover {
+            background-color: #61543f;
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        .stamp {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #a38f6d;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(15deg);
+            opacity: 0.7;
+            background-color: rgba(163, 143, 109, 0.1);
+        }
+        
+        .stamp-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: #7d6c55;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transform: rotate(-15deg);
+            line-height: 1.2;
+        }
+        
+        .success-message {
+            display: none;
+            background-color: rgba(118, 158, 118, 0.2);
+            border: 1px solid #769e76;
+            color: #4a674a;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 2px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .artifact-decoration {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 150px;
+            height: 100px;
+            opacity: 0.1;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDE1MCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIwIDUwQzIwIDI4LjkgMzcuOSAxMSA1OSAxMUg5MUMxMTIuMSAxMSAxMzAgMjguOSAxMzAgNTBDMTMwIDcxLjEgMTEyLjEgODkgOTEgODlINTlDMzcuOSA4OSAyMCA3MS4xIDIwIDUwWiIgc3Ryb2tlPSIjNWE0YTMwIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNNTUgMzBMOTUgNzAiIHN0cm9rZT0iIzVhNGEzMCIgc3Ryb2tlLXdpZHRoPSIzIi8+PHBhdGggZD0iTTk1IDMwTDU1IDcwIiBzdHJva2U9IiM1YTRhMzAiIHN0cm9rZS13aWR0aD0iMyIvPjwvc3ZnPg==');
+            background-repeat: no-repeat;
+            pointer-events: none;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            .date-unit {
+                margin-right: 10px;
+            }
+            
+            .date-value {
+                width: 65px;
+                height: 65px;
+                font-size: 2rem;
+            }
+            
+            .stamp {
+                width: 80px;
+                height: 80px;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .stamp-text {
+                font-size: 0.8rem;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="loader">
-  <span class="l">L</span>
-  <span class="o">o</span>
-  <span class="a">a</span>
-  <span class="d">d</span>
-  <span class="i">i</span>
-  <span class="n">n</span>
-  <span class="g">g</span>
-  <span class="d1">.</span>
-  <span class="d2">.</span>
-</div>
+    <div class="texture-overlay"></div>
+    <div class="container">
+        <div class="content">
+            <h1>Ancient Egypt: Unveiling Pharaoh's Secrets</h1>
+            <h2>A Special Exhibition at The Metropolitan Museum of Antiquities</h2>
+            
+            <p>Join us for an extraordinary journey through time as we showcase rare artifacts from the reign of Ramesses II, many displayed publicly for the first time. Discover meticulously preserved papyrus scrolls, ornate burial chambers, and jewelry from the royal court—each piece telling a story of ancient Egyptian civilization.</p>
+            
+            <div class="date-display">
+                <div class="date-unit">
+                    <div class="date-value" id="days">00</div>
+                    <div class="date-label">Days</div>
+                </div>
+                <div class="date-unit">
+                    <div class="date-value" id="hours">00</div>
+                    <div class="date-label">Hours</div>
+                </div>
+                <div class="date-unit">
+                    <div class="date-value" id="minutes">00</div>
+                    <div class="date-label">Minutes</div>
+                </div>
+                <div class="date-unit">
+                    <div class="date-value" id="seconds">00</div>
+                    <div class="date-label">Seconds</div>
+                </div>
+            </div>
+            
+            <div class="notification-form">
+                <div class="form-heading">Receive an invitation to our exclusive opening reception:</div>
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Your email address" aria-label="Your email address">
+                    <button id="notify-btn" type="button">Notify Me</button>
+                </div>
+                <div class="success-message" id="success-message">
+                    Thank you! We'll send you an invitation with all the details to your email address.
+                </div>
+            </div>
+        </div>
+        
+        <div class="stamp">
+            <div class="stamp-text">Coming Soon</div>
+        </div>
+        
+        <div class="artifact-decoration"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set the exhibition date - 45 days from now
+            const exhibitionDate = new Date();
+            exhibitionDate.setDate(exhibitionDate.getDate() + 45);
+            exhibitionDate.setHours(10, 0, 0, 0); // 10 AM on the day
+            
+            // Countdown timer
+            function updateCountdown() {
+                const now = new Date();
+                const distance = exhibitionDate - now;
+                
+                // Calculate time units
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Display time units with leading zeros
+                document.getElementById('days').innerHTML = days < 10 ? `0${days}` : days;
+                document.getElementById('hours').innerHTML = hours < 10 ? `0${hours}` : hours;
+                document.getElementById('minutes').innerHTML = minutes < 10 ? `0${minutes}` : minutes;
+                document.getElementById('seconds').innerHTML = seconds < 10 ? `0${seconds}` : seconds;
+                
+                // Add a subtle animation effect on seconds change
+                const secondsElement = document.getElementById('seconds');
+                secondsElement.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    secondsElement.style.transform = 'scale(1)';
+                }, 200);
+                
+                // If countdown is over
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.getElementById('days').innerHTML = "00";
+                    document.getElementById('hours').innerHTML = "00";
+                    document.getElementById('minutes').innerHTML = "00";
+                    document.getElementById('seconds').innerHTML = "00";
+                }
+            }
+            
+            // Run countdown immediately and then every second
+            updateCountdown();
+            const timer = setInterval(updateCountdown, 1000);
+            
+            // Notification form handling
+            const notifyBtn = document.getElementById('notify-btn');
+            const emailInput = document.getElementById('email');
+            const successMessage = document.getElementById('success-message');
+            
+            notifyBtn.addEventListener('click', function() {
+                const email = emailInput.value.trim();
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (email && emailPattern.test(email)) {
+                    // Simulate form submission
+                    notifyBtn.innerHTML = 'Sending...';
+                    
+                    setTimeout(() => {
+                        emailInput.value = '';
+                        successMessage.style.display = 'block';
+                        notifyBtn.innerHTML = 'Notify Me';
+                        
+                        // Fade out success message after 5 seconds
+                        setTimeout(() => {
+                            successMessage.style.opacity = '0';
+                            successMessage.style.transition = 'opacity 1s ease-out';
+                            
+                            // Hide after fade out
+                            setTimeout(() => {
+                                successMessage.style.display = 'none';
+                                successMessage.style.opacity = '1';
+                                successMessage.style.transition = 'none';
+                            }, 1000);
+                        }, 5000);
+                    }, 1500);
+                } else {
+                    // Simple validation feedback
+                    emailInput.style.borderColor = '#c77';
+                    emailInput.style.backgroundColor = 'rgba(255, 230, 230, 0.5)';
+                    
+                    setTimeout(() => {
+                        emailInput.style.borderColor = '#d8cdb6';
+                        emailInput.style.backgroundColor = '#fcf9f5';
+                    }, 2000);
+                }
+            });
+            
+            // Add hover effect to countdown units
+            const dateUnits = document.querySelectorAll('.date-value');
+            dateUnits.forEach(unit => {
+                unit.addEventListener('mouseover', function() {
+                    this.style.backgroundColor = '#e8dfd0';
+                });
+                
+                unit.addEventListener('mouseout', function() {
+                    this.style.backgroundColor = '#efe8dc';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
