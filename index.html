@@ -67,10 +67,12 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 0 20px; /* Margen seguro para móviles */
 }
 
 .event-details {
   margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .tournament {
@@ -85,14 +87,19 @@ body {
 }
 
 .match {
-  font-size: 2.6rem;
+  font-size: 4rem; /* Aumentado para impacto */
   font-weight: 900;
+  line-height: 1.1;
   text-shadow: 0 0 20px rgba(0,178,255,0.5);
+  margin: 10px 0;
 }
 
 .venue {
-  opacity: 0.8;
+  opacity: 0.9;
+  font-size: 1.5rem;
+  font-weight: 700;
   margin-top: 0.4rem;
+  color: var(--secondary);
 }
 
 .countdown-container {
@@ -101,6 +108,7 @@ body {
   align-items: flex-start;
   min-height: 140px;
   margin-top: 1.5rem;
+  flex-wrap: wrap; /* Permite que se ajuste si es necesario */
 }
 
 .countdown-segment {
@@ -150,10 +158,11 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: rgba(0,16,52,0.7);
+  background: rgba(0,16,52,0.9);
   border-top: 1px solid rgba(0,178,255,0.3);
   padding: 1rem;
   overflow: hidden;
+  z-index: 10;
 }
 
 .ticker-content {
@@ -165,10 +174,54 @@ body {
 .ticker-item {
   margin-right: 50px;
   font-weight: 700;
+  font-size: 1.1rem;
 }
 
 .ticker-highlight {
   color: var(--secondary);
+}
+
+/* --- RESPONSIVE DESIGN (Media Queries) --- */
+
+@media (max-width: 768px) {
+  .match {
+    font-size: 2.8rem; /* Título más pequeño en tablet/móvil */
+  }
+  .tournament {
+    font-size: 1rem;
+  }
+  .venue {
+    font-size: 1.2rem;
+  }
+  .segment-value {
+    font-size: 3rem; /* Números más pequeños */
+    width: auto;
+  }
+  .countdown-segment {
+    margin: 0 0.8rem;
+  }
+  .pulse-ring {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .match {
+    font-size: 2.2rem; /* Aún más pequeño para celulares */
+  }
+  .segment-value {
+    font-size: 2rem;
+  }
+  .countdown-segment {
+    margin: 0 0.4rem;
+  }
+  .segment-label {
+    font-size: 0.6rem;
+  }
+  .ticker-item {
+    font-size: 0.9rem;
+  }
 }
 
 /* Animations */
@@ -204,43 +257,46 @@ body {
 
   <div class="content">
     <div class="event-details">
-      <div class="tournament">FIFA World Cup 2026</div>
-      <div class="match">BRAZIL vs GERMANY</div>
-      <div class="venue">Rose Bowl Stadium, Los Angeles</div>
+      <div class="tournament">Nueva era, Nuevas ideas</div>
+      <div class="match">Vota NEO</div>
+      <div class="venue">11 de febrero</div>
     </div>
 
     <div class="countdown-container" id="countdown">
       <div class="countdown-segment">
         <div class="segment-value" id="days">00</div>
-        <div class="segment-label">Days</div>
+        <div class="segment-label">Días</div>
       </div>
       <div class="countdown-segment">
         <div class="segment-value" id="hours">00</div>
-        <div class="segment-label">Hours</div>
+        <div class="segment-label">Horas</div>
       </div>
       <div class="countdown-segment">
         <div class="segment-value" id="minutes">00</div>
-        <div class="segment-label">Minutes</div>
+        <div class="segment-label">Minutos</div>
       </div>
       <div class="countdown-segment">
         <div class="segment-value" id="seconds">00</div>
-        <div class="segment-label">Seconds</div>
+        <div class="segment-label">Segundos</div>
       </div>
     </div>
   </div>
 
   <div class="ticker">
     <div class="ticker-content">
-      <div class="ticker-item">Brazil seeking <span class="ticker-highlight">sixth World Cup title</span></div>
-      <div class="ticker-item">Germany wants revenge <span class="ticker-highlight">2014</span></div>
-      <div class="ticker-item">Over <span class="ticker-highlight">90,000 fans</span> expected</div>
+      <div class="ticker-item">El futuro <span class="ticker-highlight">es ahora</span></div>
+      <div class="ticker-item">Tu voz cuenta para el <span class="ticker-highlight">cambio real</span></div>
+      <div class="ticker-item">Juntos somos <span class="ticker-highlight">NEO</span></div>
+      <div class="ticker-item">No faltes este <span class="ticker-highlight">11 de febrero</span></div>
+      <div class="ticker-item">Innovación + <span class="ticker-highlight">Compromiso</span></div>
     </div>
   </div>
 
 </div>
 
 <script>
-const eventDate = new Date('February 11, 2026 08:00:00 GMT-6').getTime();
+// Fecha configurada para el 11 de Febrero de 2026 a las 8:00 AM
+const eventDate = new Date('February 11, 2026 08:00:00').getTime();
 
 const daysEl = document.getElementById('days');
 const hoursEl = document.getElementById('hours');
@@ -251,7 +307,14 @@ function updateCountdown() {
   const now = Date.now();
   const diff = eventDate - now;
 
-  if (diff < 0) return;
+  if (diff < 0) {
+    // Si ya pasó la fecha, mostrar ceros
+    daysEl.textContent = "00";
+    hoursEl.textContent = "00";
+    minutesEl.textContent = "00";
+    secondsEl.textContent = "00";
+    return;
+  }
 
   const d = Math.floor(diff / (1000 * 60 * 60 * 24));
   const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
